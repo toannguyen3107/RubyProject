@@ -3,9 +3,13 @@
 	author: Nguyen Minh Toan
 	date: 23/05/2024
 =end
-def expr(s)
-	arr = s.scan(/\d+|[+\-\*\/]/).map {|x| x.match(/\d+/)? x.to_f : x}
+def test(s)
+	arr = s.scan(/(\d+(\.\d+)?|[+\-\*\/])/)
 	arr.inspect
+end
+def expr(s)
+	arr = s.scan(/(\d+(\.\d+)?|[+\-*\/])/).map {|x| x[0].match(/\A\d+(\.\d+)?\z/)? x[0].to_f : x[0]}
+#	arr.inspect
 	case arr[1]
 		when '+'
 			return arr[0] + arr[2]
@@ -18,7 +22,7 @@ def expr(s)
 	end
 end
 if ARGV.length != 3
-	puts ARGV.length
+	puts ARGV
 	puts "Have problem!"
 	exit(1)
 end
